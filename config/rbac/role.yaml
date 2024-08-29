@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - idp.zx.io
+  resources:
+  - identities
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - idp.zx.io
+  resources:
+  - identities/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - idp.zx.io
+  resources:
+  - identities/status
+  verbs:
+  - get
+  - patch
+  - update

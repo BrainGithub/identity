@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- idp_v1_identity.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples
