@@ -1,0 +1,10 @@
+apiVersion: idp.zx.io/v1
+kind: Identity
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: identity
+  name: identity-1
+spec:
+  configMapName: "hello"
+  secretName: "no"

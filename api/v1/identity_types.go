@@ -31,17 +31,17 @@ type IdentitySpec struct {
 	// Quantity of instances
 	// +kubebuilder:validation:Minimum=0
 	// +kubebuilder:validation:Maximum=10
-	Size int32 `json:"size"`
+	Size int32 `json:"size,omitempty"`
 
 	// Name of the ConfigMap for configuration
 	// +kubebuilder:validation:MaxLength=32
 	// +kubebuilder:validation:MinLength=1
-	ConfigMapName string `json:"configMapName"`
+	ConfigMapName string `json:"configMapName,omitempty"`
 
-	// Name of the Secret for configuration
+	// Name of the SecretName for configuration
 	// +kubebuilder:validation:MaxLength=32
 	// +kubebuilder:validation:MinLength=1
-	SecretName string `json:"secretName"`
+	SecretName string `json:"secretName,omitempty"`
 }
 
 // IdentityStatus defines the observed state of Identity

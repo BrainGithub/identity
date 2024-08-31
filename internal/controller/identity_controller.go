@@ -18,6 +18,7 @@ package controller
 
 import (
 	"context"
+	"fmt"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -47,9 +48,30 @@ type IdentityReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.19.0/pkg/reconcile
 func (r *IdentityReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	// TODO(user): your logic here
+	logger.Info(fmt.Sprintf("here I am: %+v", req.String()))
+
+	// Create an instance of the Identity resource
+	identity := &idpv1.Identity{}
+
+	// Fetch the Identity resource
+	err := r.Get(ctx, req.NamespacedName, identity)
+	if err != nil {
+		if client.IgnoreNotFound(err) != nil {
+			logger.Error(err, "Failed to get Identity")
+			return ctrl.Result{}, err
+		}
+		// If the resource is not found, we can return and do nothing
+		logger.Info("Identity resource not found. Ignoring since it must be deleted.")
+		return ctrl.Result{}, nil
+	}
+
+	// Now you can access the Identity resource's spec and status
+	logger.Info("Identity resource details"+identity.GetName(), "spec", identity.Spec, "status", identity.Status)
+
+	// TODO: Add your reconciliation logic here
 
 	return ctrl.Result{}, nil
 }
